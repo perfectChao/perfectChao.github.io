@@ -1,16 +1,318 @@
-{% extends '_layout.njk' %}
-{% import '_macro/sidebar.njk' as sidebar_template with context %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+  
+  <title>iOS | 好好学习, 天天向上</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一个NSObject对象占用多少内存? 系统分配了16个字节给NSObject对象(通过malloc_size函数获得), 但NSObject对象内部只使用了8个字节(isa指针), 64bit环境下, 可以通过class_getInstanceSize函数获得.  CoreFoundation: 框架下所有对象至少要16个字节, 16字节的整数倍 1234567@interface Dog :">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS">
+<meta property="og:url" content="http://yoursite.com/2021/01/26/iOS/index.html">
+<meta property="og:site_name" content="好好学习, 天天向上">
+<meta property="og:description" content="一个NSObject对象占用多少内存? 系统分配了16个字节给NSObject对象(通过malloc_size函数获得), 但NSObject对象内部只使用了8个字节(isa指针), 64bit环境下, 可以通过class_getInstanceSize函数获得.  CoreFoundation: 框架下所有对象至少要16个字节, 16字节的整数倍 1234567@interface Dog :">
+<meta property="og:image" content="http://yoursite.com/2021/01/26/iOS/media/16116447191591/1.jpg">
+<meta property="article:published_time" content="2021-01-26T07:05:19.159Z">
+<meta property="article:modified_time" content="2021-02-04T08:14:22.064Z">
+<meta property="article:author" content="chao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/01/26/iOS/media/16116447191591/1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="好好学习, 天天向上" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
 
-{% block class %}post posts-expand{% endblock %}
+<meta name="generator" content="Hexo 4.2.0"></head>
 
-{% block content %}
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">好好学习, 天天向上</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-iOS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/26/iOS/" class="article-date">
+  <time datetime="2021-01-26T07:05:19.159Z" itemprop="datePublished">2021-01-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS
+    </h1>
+  
 
-  {{ partial('_macro/post.njk', {post: page}) }}
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一个NSObject对象占用多少内存"><a href="#一个NSObject对象占用多少内存" class="headerlink" title="一个NSObject对象占用多少内存?"></a>一个NSObject对象占用多少内存?</h1><p> 系统分配了16个字节给NSObject对象(通过malloc_size函数获得), 但NSObject对象内部只使用了8个字节(isa指针), 64bit环境下, 可以通过class_getInstanceSize函数获得.</p>
+<p> CoreFoundation: 框架下所有对象至少要16个字节, 16字节的整数倍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@interface Dog : NSObject</span><br><span class="line">&#x2F;&#x2F; isa 8 继承自NSObject</span><br><span class="line">@property (nonatomic, assign) int num; &#x2F;&#x2F; 4</span><br><span class="line">@property (nonatomic, assign) double num2; &#x2F;&#x2F; 8</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 打印信息: malloc_size((__bridge const void *)(dog)) 32</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 
-{% endblock %}
+<p> 结构体对其: 结构体总大小是最大类型的整数倍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct III</span><br><span class="line">&#123;</span><br><span class="line">	float x;&#x2F;&#x2F;4</span><br><span class="line">	double y; &#x2F;&#x2F;8</span><br><span class="line">&#125;;&#x2F;&#x2F;总大小16 单个最大类型为8</span><br></pre></td></tr></table></figure>
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+<h1 id="对象的isa指针指向哪里"><a href="#对象的isa指针指向哪里" class="headerlink" title="对象的isa指针指向哪里?"></a>对象的isa指针指向哪里?</h1><p>instance对象的isa指向class对象<br>class对象的isa指向meta-class对象<br>meta-class对象的isa指向基类的meta-class对象</p>
+<h1 id="OC的类信息存放在哪里"><a href="#OC的类信息存放在哪里" class="headerlink" title="OC的类信息存放在哪里?"></a>OC的类信息存放在哪里?</h1><p>对象方法, 属性, 成员变量, 协议信息存放在class对象中 (1份)<br>类方法, 存放在meta-class对象中<br>成员变量的具体值, 存放在instance对象(不同instance值不同)</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><ul>
+<li>分类是运行时决议</li>
+<li>可以为系统类添加分类</li>
+<li>分类添加属性的时候, 只是添加了对应的get和set方法, 并没有添加实例变量.</li>
+<li>最先访问的是最后编译的分类, 如果有多个分类中都有同名的分类方法, 哪个分类最后编译, 哪个分类里的同名分类方法才会生效</li>
+<li>名字相同的分类会引起编译报错</li>
+</ul>
+<h1 id="category的实现原理"><a href="#category的实现原理" class="headerlink" title="category的实现原理"></a>category的实现原理</h1><p>category编译之后的底层结构是struct category_t, 里面存储着分类的对象方法, 类方法, 属性, 协议信息<br>在程序运行时, runtime会把category的数据, 合并到类信息中</p>
+<h1 id="分类与class-Extension区别"><a href="#分类与class-Extension区别" class="headerlink" title="分类与class Extension区别"></a>分类与class Extension区别</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@interface Person ()</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
+<ul>
+<li>分类是运行时决议, 扩展是编译时</li>
+<li>分类可以为系统类添加分类, 扩展不可以</li>
+<li>扩展一般写在.m中</li>
+</ul>
+<h1 id="category中有load方法吗-load方法是什么时候调用的-load方法能继承吗"><a href="#category中有load方法吗-load方法是什么时候调用的-load方法能继承吗" class="headerlink" title="category中有load方法吗?load方法是什么时候调用的?load方法能继承吗?"></a>category中有load方法吗?load方法是什么时候调用的?load方法能继承吗?</h1><p>有load方法, load方法在runtime加载类,分类的时候调用, load方法可以继承,但是一般<br>情况下不会主动去调用load方法, 都是让系统自动调用</p>
+<h1 id="category能否添加成员变量-如果可以-如何给category添加成员变量"><a href="#category能否添加成员变量-如果可以-如何给category添加成员变量" class="headerlink" title="category能否添加成员变量? 如果可以, 如何给category添加成员变量?"></a>category能否添加成员变量? 如果可以, 如何给category添加成员变量?</h1><p>不能直接给category添加成员变量, 但是可以通过关联对象的方式添加成员变量</p>
+<h1 id="代理与通知的区别"><a href="#代理与通知的区别" class="headerlink" title="代理与通知的区别"></a>代理与通知的区别</h1><p>代理传递方式是一对一; 通知是使用观察者模式来实现的夸层传递消息的机制, 传递方式为一对多<br>通知实现机制: NotificationCenter会维护一个map, key为notificationName, value<br>为observers_list是一个数组列表, 列表中成员是通知的观察者, 还有对应观察者调用的回调方法</p>
+<h1 id="runtime见ppt"><a href="#runtime见ppt" class="headerlink" title="runtime见ppt"></a>runtime见ppt</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">+ (Class)class &#123;</span><br><span class="line">    return self</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (Class)class &#123;</span><br><span class="line">    return object_getClass(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class object_getClass(id obj) &#123;</span><br><span class="line">    if (obj) return obj-&gt;getIsa();</span><br><span class="line">    else return Nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (BOOL)isMemberOfClass:(Class)cls &#123;</span><br><span class="line">    return object_getClass((id)self) &#x3D;&#x3D; cls;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)isMemberOfClass:(Class)cls &#123;</span><br><span class="line">    return [self class] &#x3D;&#x3D; cls;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (BOOL)isKindOfClass:(Class)cls &#123;</span><br><span class="line">    for (Class tcls &#x3D; object_getClass((id)self); tcls; tcls &#x3D; tcls-&gt;superclass) &#123;</span><br><span class="line">        if (tcls &#x3D;&#x3D; cls) return YES:</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)isKindOfClass:(Class)cls &#123;</span><br><span class="line">    for (Class tcls &#x3D; [self class]; tcls; tcls &#x3D; tcls-&gt;superclass) &#123;</span><br><span class="line">        if (tcls &#x3D;&#x3D; cls) return YES:</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="讲一下OC的消息机制"><a href="#讲一下OC的消息机制" class="headerlink" title="讲一下OC的消息机制"></a>讲一下OC的消息机制</h1><ul>
+<li>OC中的方法调用其实都是转成了objc_msgSend函数的调用, 给receiver(方法调用者)发送了一条消息(selector方法名)</li>
+<li>objc_msgSend底层有3大阶段, 消息发送(当前类, 父类中查找), 动态方法解析, 消息转发</li>
+</ul>
+<h1 id="消息转发机制流程"><a href="#消息转发机制流程" class="headerlink" title="消息转发机制流程"></a>消息转发机制流程</h1><p>1）BOOL resolveInstanceMethod：SEL，是个类方法，返回YES相当于系统已经处理；<br>2）如果第一次转发返回NO系统给第二次机会来处理，会回调（id ）forwardingTargetForSelector：，返回值是个id类型的对象，相当于告诉系统这个选择器或者实例方法的调用，应该由哪个对象处理，转发对象是谁，如果指定了一个转发目标，系统会把这条消息转发给返回的转发目标并结束当前的转发流程；<br>3）如果第2次消息转发返回nil，系统会给第三次转发机会，即最后一次机会，系统会调用（NSMethodSignature*）methodSignatureForSelector：SEL，如果返回一个方法签名，系统会调用forwardInvocation：SEL，如果可以处理那么转发流程结束；如果返回nil不能处理，那么会返回消息无法处理，crash，提示未识别选择器。<br>类方法的消息转发流程：<br>resolveClassMethod：SEL</p>
+<h1 id="runtime具体应用"><a href="#runtime具体应用" class="headerlink" title="runtime具体应用"></a>runtime具体应用</h1><ul>
+<li>利用关联对象给分类添加属性</li>
+<li>遍历类的所有成员变量, router赋值, 字典转模型等等</li>
+<li>交互系统方法(hook)</li>
+<li>利用消息转发机制解决循环引用问题</li>
+<li>利用消息转发机制解决找不到方法异常问题</li>
+</ul>
+<h1 id="isa详解见ppt"><a href="#isa详解见ppt" class="headerlink" title="isa详解见ppt"></a>isa详解见ppt</h1><h1 id="super的本质"><a href="#super的本质" class="headerlink" title="super的本质"></a>super的本质</h1><p>self class 转化为：objc _msgsend<br>super class 转化为：objc _msgsendsuper  结构体内的receiver;//这里的receiver就是self即当前对象, 查找方式是从super开始查找<br>实际接收这都是当前对象</p>
+<h1 id="load"><a href="#load" class="headerlink" title="+load"></a>+load</h1><ul>
+<li>+load方法会在runtime类加载的时候调用</li>
+<li>每个类, 分类的+load在程序运行过程中只调用一次</li>
+<li>调用顺序: 父类-子类-父分类-子分类 (分类按照编译顺序)</li>
+<li>+load方法是根据方法地址直接调用, 并不是经过objc_msgSend<br>函数调用</li>
+</ul>
+<h1 id="initialize"><a href="#initialize" class="headerlink" title="+initialize"></a>+initialize</h1><ul>
+<li>会在类第一次接收到消息时调用</li>
+<li>调用顺序: 父类-子类</li>
+<li>第一次使用时候调用, 会先调用父类的, 然后在调用子类的, 父类可能会被调用多次(子类为实现initialize)</li>
+</ul>
+<h1 id="什么是KVO"><a href="#什么是KVO" class="headerlink" title="什么是KVO?"></a>什么是KVO?</h1><p>kvo是Objective-C对观察者模式的实现, 使用isa-swizzling来实现, 当我们添加kvo系统在运行时为我们创建NSKVONotifying_A对象, 同时将A的isa指向NSKVONotifying_A对象, NSKVONotifying_A对象为A的子类, 重写setter方法.(willchangeValueForKey, didChangeValueForKey)</p>
+<h1 id="手动触发KVO"><a href="#手动触发KVO" class="headerlink" title="手动触发KVO"></a>手动触发KVO</h1><p>手动调用willchangeValueForKey和didChangeValueForKey</p>
+<h1 id="是否会触发KVO"><a href="#是否会触发KVO" class="headerlink" title="是否会触发KVO"></a>是否会触发KVO</h1><p>成员属性赋值不会触发kvo<br>setter, kvc触发kvo</p>
+<h1 id="KVC的赋值和取值过程是怎么样的-原理是什么"><a href="#KVC的赋值和取值过程是怎么样的-原理是什么" class="headerlink" title="KVC的赋值和取值过程是怎么样的?原理是什么?"></a>KVC的赋值和取值过程是怎么样的?原理是什么?</h1><p>setValueForKey流程:</p>
+<ol>
+<li>查看对应的setter方法是否存在 </li>
+<li>查看对应的Instance var是否存在, 顺序为_key, _isKey, key, isKey(前提条件accessInstanceVariablesDirectly为YES)</li>
+<li>setValueForUndefinedKey:抛出异常</li>
+</ol>
+<p>valueForKey流程:</p>
+<ol>
+<li>查看对应的getter方法是否存在 </li>
+<li>查看对应的Instance var是否存在, 顺序为_key, _isKey, key, isKey(前提条件accessInstanceVariablesDirectly为YES)</li>
+<li>valueForUndefinedKey:抛出异常</li>
+</ol>
+<h1 id="关联对象的本质"><a href="#关联对象的本质" class="headerlink" title="关联对象的本质?"></a>关联对象的本质?</h1><p>关联对象由AssociationsManager管理并在AssociationsHashMap存储. 所有对象的关联内容都在同一个全局容器中</p>
+<p><img src="media/16116447191591/1.jpg" alt="1"></p>
+<h1 id="如何清除关联对象"><a href="#如何清除关联对象" class="headerlink" title="如何清除关联对象?"></a>如何清除关联对象?</h1><p>将value设置为nil就是清除关联对象</p>
+<h1 id="atomic-noatomic"><a href="#atomic-noatomic" class="headerlink" title="atomic, noatomic"></a>atomic, noatomic</h1><p> atomic修饰的变量可以保证获取和赋值操作是线程安全的. 这个获取和赋值并不代表操作</p>
+<h1 id="copy关键字"><a href="#copy关键字" class="headerlink" title="copy关键字"></a>copy关键字</h1><p>有一个是mutable即为深拷贝, 对于容器对象, 对容器中存储的对象是引用关系</p>
+<h1 id="assing修饰符"><a href="#assing修饰符" class="headerlink" title="assing修饰符"></a>assing修饰符</h1><p>修饰基本数据类型如int, BOOL等<br>修饰对象类型时, 不改变其引用计数<br>在被assign修饰的对象, 在被释放之后, assign仍指向原对象地址. 如果继续访问原对象, 程序可能发生异常</p>
+<h1 id="weak的特点"><a href="#weak的特点" class="headerlink" title="weak的特点:"></a>weak的特点:</h1><p>多用来解决循环引用问题<br>可以修饰基本数据类型, 也可以修饰对象</p>
+<h1 id="系统是怎么把一个weak变量添加到弱引用计数表中的"><a href="#系统是怎么把一个weak变量添加到弱引用计数表中的" class="headerlink" title="系统是怎么把一个weak变量添加到弱引用计数表中的?"></a>系统是怎么把一个weak变量添加到弱引用计数表中的?</h1><p>一个被声明为__weak的对象指针，经过编译器编译后会调用objc_initWeak(),storeWeak()这些函数调用栈,最终在weak_register_no_lock()这样的函数当中进行弱引用变量的添加：具体添加的位置是通过一个hash算法来进行位置查找，如果查找对应位置中已经有了当前对象所对应的弱引用数组，就会把新的弱引用变量添加到弱引用数组中；如果没有就会重新创建一个弱引用数组，然后把新的弱引用变量添加到第0个位置，后面的都初始化为nil。</p>
+<h1 id="当一个对象被释放之后-weak变量是如何处理的"><a href="#当一个对象被释放之后-weak变量是如何处理的" class="headerlink" title="当一个对象被释放之后, weak变量是如何处理的?"></a>当一个对象被释放之后, weak变量是如何处理的?</h1><p>当一个对象被dealloc之后，在dealloc() 的内部实现当中会去调用弱引用清除的相关函数，然后在weak_clear_no_lock()当中，会根据当前对象指针查找弱引用表，把当前对象相对应的弱引用都取出来得到一个数组，然后遍历这个数组当中的弱引用指针，分别置为nil</p>
+<h1 id="自动释放池"><a href="#自动释放池" class="headerlink" title="自动释放池"></a>自动释放池</h1><ul>
+<li>自动释放池的主要底层数据结构是AutoreleasePoolPage</li>
+<li>调用autorelease的对象最终都是通过AutoreleasePoolPage对象来管理的</li>
+<li>每个AutoreleasePoolPage对象占用4096字节内存, 除了用来存放它内部的成员变量, 剩下的空间用来存放autorelease对象的地址</li>
+<li>所有的AutoreleasePoolPage对象通过双向链表的形式连接在一起</li>
+<li>调用push方法会将一个POOL_BOUNDARY入栈, 并且返回其存放的内存地址</li>
+<li>调用pop方法时传入一个POOL_BOUNDARY的内存地址, 会从最后一个入栈的对象开始发送release消息, 直接遇到这个POOL_BOUNDARY</li>
+<li>id *next指向了下一个能存放autorelease对象地址的区域</li>
+</ul>
+<h1 id="主线程RunLoop和Autorelease对象的关系"><a href="#主线程RunLoop和Autorelease对象的关系" class="headerlink" title="主线程RunLoop和Autorelease对象的关系"></a>主线程RunLoop和Autorelease对象的关系</h1><p>iOS在主线程的Runloop中注册了2个Observer</p>
+<ul>
+<li>第1个Observer监听了kCFRunLoopEntry事件, 会调用objc_autoreleasePoolPush()</li>
+<li>第2个Observer监听了kCFRunLoopBeforeWaiting事件, 会调用objc_autoreleasePoolPop(),objc_autoreleasePoolPush(); 监听了kCFRunLoopBeforeExit事件, 会调用objc_autoreleasePoolPop();</li>
+</ul>
+<h1 id="MRC下setter方法"><a href="#MRC下setter方法" class="headerlink" title="MRC下setter方法"></a>MRC下setter方法</h1><p>先判断是否相同, 避免直接release</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)setName:(NSString *)name &#123;</span><br><span class="line">    if (name !&#x3D; _name) &#123;</span><br><span class="line">        [_name release];</span><br><span class="line">        _name &#x3D; [name retain];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="block本质"><a href="#block本质" class="headerlink" title="block本质"></a>block本质</h1><p>block是封装函数及其上下文的一个对象, 内部含有isa指针, 其根为NSBlock, 继承自NSObject</p>
+<table>
+<thead>
+<tr>
+<th>变量类型</th>
+<th>捕获到block内部</th>
+<th>访问方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>局部变量</td>
+<td>auto捕获, static捕获</td>
+<td>auto值传递(对象类型连同所有权修饰符一起捕获), static指针传递</td>
+</tr>
+<tr>
+<td>全局变量</td>
+<td>不捕获</td>
+<td>直接访问</td>
+</tr>
+</tbody></table>
+<h1 id="请问下面代码打印什么"><a href="#请问下面代码打印什么" class="headerlink" title="请问下面代码打印什么"></a>请问下面代码打印什么</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue &#x3D; dispatch_get_global_queue(0, 0);</span><br><span class="line">dispatch_async(queue, ^&#123;</span><br><span class="line">    NSLog(@&quot;1&quot;);</span><br><span class="line">    &#x2F;&#x2F; 本质是往runloop中添加定时器</span><br><span class="line">    [self performSelector:@selector(test) withObject:nil afterDelay:3];</span><br><span class="line">    &#x2F;&#x2F; 开启子线程runloop</span><br><span class="line">    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];</span><br><span class="line">    NSLog(@&quot;3&quot;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">- (void)test &#123;</span><br><span class="line">    NSLog(@&quot;2&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">打印结果123</span><br><span class="line">分析: </span><br><span class="line">1. [[NSRunLoop currentRunLoop] run] 中相当于while循环调用[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]] </span><br><span class="line">2. timer将在3s后移除</span><br><span class="line">3. 如果添加port且[[NSRunLoop currentRunLoop] run], 3将不会被执行</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;1&quot;);</span><br><span class="line">    &#x2F;&#x2F; 本质是往runloop中添加定时器</span><br><span class="line">    [self performSelector:@selector(test) withObject:nil afterDelay:0];</span><br><span class="line">    NSLog(@&quot;3&quot;);</span><br><span class="line">    &#x2F;&#x2F; 开启子线程runloop</span><br><span class="line">    [[NSRunLoop currentRunLoop] run];</span><br><span class="line">    </span><br><span class="line">    打印结果132</span><br></pre></td></tr></table></figure>
+
+<h1 id="NSTimer创建的区别"><a href="#NSTimer创建的区别" class="headerlink" title="NSTimer创建的区别"></a>NSTimer创建的区别</h1><p>scheduledTimerWithTimeInterval, 会将Timer添加到runloop中<br>timerWithTimeInterval, 不会将Timer添加到runloop中</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/01/26/iOS/" data-id="cklbrm9if0002us0oayge72j5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/02/18/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World 2020年04月29日10:10:28
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/18/hello-world/">Hello World 2020年04月29日10:10:28</a>
+          </li>
+        
+          <li>
+            <a href="/2021/01/26/iOS/">iOS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 chao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
