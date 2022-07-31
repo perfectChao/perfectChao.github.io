@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkweb_easy=self.webpackChunkweb_easy||[]).push([[649],{5285:function(n,e,r){r.d(e,{Z:function(){return u}});var c,a=r(2791),i=r(168),s=r(6031).ZP.div(c||(c=(0,i.Z)(["\n  margin-top: 20px;\n"]))),t=r(184),u=(0,a.memo)((function(n){return(0,t.jsx)(s,{className:"card container",children:(0,t.jsx)("div",{className:"card-body",children:n.children})})}))},9649:function(n,e,r){r.r(e);var c=r(2791),a=r(5285),i=r(184),s=(0,c.memo)((function(){return(0,i.jsx)(a.Z,{children:"Mine"})}));e.default=s}}]);
+//# sourceMappingURL=649.d3e91123.chunk.js.map
